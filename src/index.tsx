@@ -15,25 +15,21 @@ import { AntDesign } from "@expo/vector-icons";
 
 export default function TodoList() {
   const [todoText, setTodoText] = useState<string>("");
-  const unsuscribe = store.subscribe(() => {
-    console.log("Oops! Store changed!", store.getState());
-  });
 
   const storedData = store.getState();
-  console.log('stored data---->', storedData.toDolist);
   
-  const _renderItem = ({ item }) => {
-    <View style={styles.itemContainer}>
-      <Text style={styles.itemTex}>{item.text}</Text>
-      <TouchableOpacity
-        onPress={() => {
-          store.dispatch(removeTodos(item.id));
-        }}
-      >
-        <AntDesign name="delete" size={24} color="red" />
-      </TouchableOpacity>
-    </View>;
-  };
+  // const _renderItem = ({ item }) => {
+  //   <View style={styles.itemContainer}>
+  //     <Text style={styles.itemTex}>{item.text}</Text>
+  //     <TouchableOpacity
+  //       onPress={() => {
+  //         store.dispatch(removeTodos(item.id));
+  //       }}
+  //     >
+  //       <AntDesign name="delete" size={24} color="red" />
+  //     </TouchableOpacity>
+  //   </View>;
+  // };
 
   return (
     <View style={{ flex: 1, marginVertical: 20, marginHorizontal: 10 }}>
