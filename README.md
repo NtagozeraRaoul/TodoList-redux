@@ -1,1 +1,1 @@
-# TodoList-redux
+# counter-app-redux-
