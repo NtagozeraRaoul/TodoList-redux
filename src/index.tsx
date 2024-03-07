@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import store from "./store";
 import { addTodos, removeTodos } from "./actionCreater";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 //state = reducer(state, action);
 
@@ -17,7 +17,7 @@ export default function TodoList() {
   const [todoText, setTodoText] = useState<string>("");
 
   const storedData = store.getState();
-  
+
   // const _renderItem = ({ item }) => {
   //   <View style={styles.itemContainer}>
   //     <Text style={styles.itemTex}>{item.text}</Text>
@@ -30,6 +30,9 @@ export default function TodoList() {
   //     </TouchableOpacity>
   //   </View>;
   // };
+  useEffect(() => {
+    console.log('something changed');
+  }, [storedData.toDolist]);
 
   return (
     <View style={{ flex: 1, marginVertical: 20, marginHorizontal: 10 }}>
@@ -62,17 +65,18 @@ export default function TodoList() {
       <FlatList
         data={storedData.toDolist}
         renderItem={({ item }) => {
-            return (
-          <View style={styles.itemContainer}>
-            <Text style={styles.itemTex}>{item.text}</Text>
-            <TouchableOpacity
-              onPress={() => {
-                store.dispatch(removeTodos(item.id));
-              }}
-            >
-              <AntDesign name="delete" size={24} color="red" />
-            </TouchableOpacity>
-          </View>)
+          return (
+            <View style={styles.itemContainer}>
+              <Text style={styles.itemTex}>{item.text}</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  store.dispatch(removeTodos(item.id));
+                }}
+              >
+                <AntDesign name="delete" size={24} color="red" />
+              </TouchableOpacity>
+            </View>
+          );
         }}
         keyExtractor={(item) => item.id.toString()}
       />
@@ -91,9 +95,5 @@ const styles = StyleSheet.create({
   },
   itemTex: {
     fontSize: 20,
-  },
-  deleteItem: {
-    fontSize: 24,
-    color: "red",
   },
 });
